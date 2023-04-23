@@ -1,0 +1,632 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 5.0.1 (Python 3.11.1 on win32)" generated="20230423 12:30:39.414" rpa="false" schemaversion="3">
+<suite id="s1" name="Usertest" source="c:\Projeto\automacao\reqresPost-project\src\test\usertest\usertest.robot">
+<kw name="Conectar na API" library="commonResource" type="SETUP">
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>content-type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230423 12:30:44.655" level="INFO">${headers} = {'content-type': 'application/json'}</msg>
+<status status="PASS" starttime="20230423 12:30:44.653" endtime="20230423 12:30:44.669"/>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=goRestAPI</arg>
+<arg>url=${BASE_URL}</arg>
+<arg>headers=${headers}</arg>
+<arg>verify=true</arg>
+<arg>disable_warnings=1</arg>
+<arg>proxies=htpps</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20230423 12:30:44.671" level="INFO">Creating Session using : alias=goRestAPI, url=https://reqres.in, headers={'content-type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=htpps, verify=True,                     debug=0 </msg>
+<status status="PASS" starttime="20230423 12:30:44.670" endtime="20230423 12:30:44.672"/>
+</kw>
+<status status="PASS" starttime="20230423 12:30:44.652" endtime="20230423 12:30:44.673"/>
+</kw>
+<test id="s1-t1" name="TI_01 - Cadastrar cliente na lista &quot;user&quot;" line="12">
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>content-type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230423 12:30:44.676" level="INFO">${headers} = {'content-type': 'application/json'}</msg>
+<status status="PASS" starttime="20230423 12:30:44.675" endtime="20230423 12:30:44.677"/>
+</kw>
+<kw name="Gerar dados de usuário" library="helpers">
+<var>${cadastrar}</var>
+<kw name="Gerar nome" library="helpers">
+<var>${nome}</var>
+<kw name="Name" library="FakerLibrary">
+<var>${nome}</var>
+<doc>:example 'John Doe'</doc>
+<msg timestamp="20230423 12:30:44.684" level="INFO">${nome} = Melissa Stewart</msg>
+<status status="PASS" starttime="20230423 12:30:44.682" endtime="20230423 12:30:44.687"/>
+</kw>
+<msg timestamp="20230423 12:30:44.688" level="INFO">${nome} = Melissa Stewart</msg>
+<status status="PASS" starttime="20230423 12:30:44.681" endtime="20230423 12:30:44.688"/>
+</kw>
+<kw name="Gerar job" library="helpers">
+<var>${job}</var>
+<kw name="Evaluate" library="BuiltIn">
+<var>${job}</var>
+<arg>random.choice(${jobs})</arg>
+<arg>random</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230423 12:30:44.691" level="INFO">${job} = SM</msg>
+<status status="PASS" starttime="20230423 12:30:44.690" endtime="20230423 12:30:44.691"/>
+</kw>
+<msg timestamp="20230423 12:30:44.692" level="INFO">${job} = SM</msg>
+<status status="PASS" starttime="20230423 12:30:44.689" endtime="20230423 12:30:44.692"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${usuario}</var>
+<arg>name=${nome}</arg>
+<arg>job=${job}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230423 12:30:44.694" level="INFO">${usuario} = {'name': 'Melissa Stewart', 'job': 'SM'}</msg>
+<status status="PASS" starttime="20230423 12:30:44.693" endtime="20230423 12:30:44.694"/>
+</kw>
+<msg timestamp="20230423 12:30:44.695" level="INFO">${cadastrar} = {'name': 'Melissa Stewart', 'job': 'SM'}</msg>
+<status status="PASS" starttime="20230423 12:30:44.680" endtime="20230423 12:30:44.695"/>
+</kw>
+<kw name="Cadastrar usuário" library="helpers">
+<var>${usuario_cadastro}</var>
+<arg>${cadastrar}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>content-type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230423 12:30:44.697" level="INFO">${headers} = {'content-type': 'application/json'}</msg>
+<status status="PASS" starttime="20230423 12:30:44.696" endtime="20230423 12:30:44.697"/>
+</kw>
+<kw name="Enviar uma requisição POST no endpoint de users" library="UserResources">
+<var>${usuario_cadastrado}</var>
+<arg>${usuario}</arg>
+<arg>${headers}</arg>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>alias=goRestAPI</arg>
+<arg>url=${ENDPOINT_POSTS}</arg>
+<arg>json=${usuario}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20230423 12:30:45.797" level="INFO">POST Request : url=https://reqres.in/api/users 
+ path_url=/api/users 
+ headers={'User-Agent': 'python-requests/2.28.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'content-type': 'application/json', 'Content-Length': '40'} 
+ body=b'{"name": "Melissa Stewart", "job": "SM"}' 
+ </msg>
+<msg timestamp="20230423 12:30:45.798" level="INFO">POST Response : url=https://reqres.in/api/users 
+ status=201, reason=Created 
+ headers={'Date': 'Sun, 23 Apr 2023 15:30:57 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '87', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Etag': 'W/"57-Qb0ogpF1l7CgQdjPPsDYFh/hhQQ"', 'Via': '1.1 vegur', 'CF-Cache-Status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=RYKLIP6mm7d4oG54lMlf%2F%2BvNlJxRcetXAxgf%2FU1y8qbqzIhAYZeUEypjKzTxU80zmaO%2Buv4HI5OUWNmi2O%2FSXb%2FXbWMb3kJPqDaN19Xm3%2BsQD1Rnd%2BTLEC%2BIgQ%3D%3D"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '7bc7268eaac59ca6-GIG'} 
+ body={"name":"Melissa Stewart","job":"SM","id":"705","createdAt":"2023-04-23T15:30:56.995Z"} 
+ </msg>
+<msg timestamp="20230423 12:30:45.799" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20230423 12:30:44.698" endtime="20230423 12:30:45.799"/>
+</kw>
+<msg timestamp="20230423 12:30:45.800" level="INFO">${usuario_cadastrado} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20230423 12:30:44.697" endtime="20230423 12:30:45.801"/>
+</kw>
+<msg timestamp="20230423 12:30:45.801" level="INFO">${usuario_cadastro} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20230423 12:30:44.695" endtime="20230423 12:30:45.801"/>
+</kw>
+<kw name="Status code deve ser" library="commonResource">
+<arg>201</arg>
+<arg>${usuario_cadastro}</arg>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<arg>${status_code_esperado}</arg>
+<arg>${response.status_code}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<msg timestamp="20230423 12:30:45.804" level="INFO">Argument types are:
+&lt;class 'str'&gt;
+&lt;class 'int'&gt;</msg>
+<status status="PASS" starttime="20230423 12:30:45.803" endtime="20230423 12:30:45.804"/>
+</kw>
+<kw name="Log Many" library="BuiltIn">
+<arg>Status code esperado: ${status_code_esperado} - Status code obtido: ${response.status_code}</arg>
+<doc>Logs the given messages as separate entries using the INFO level.</doc>
+<msg timestamp="20230423 12:30:45.806" level="INFO">Status code esperado: 201 - Status code obtido: 201</msg>
+<status status="PASS" starttime="20230423 12:30:45.805" endtime="20230423 12:30:45.806"/>
+</kw>
+<status status="PASS" starttime="20230423 12:30:45.802" endtime="20230423 12:30:45.806"/>
+</kw>
+<kw name="Gerar nome" library="helpers">
+<var>${nome}</var>
+<kw name="Name" library="FakerLibrary">
+<var>${nome}</var>
+<doc>:example 'John Doe'</doc>
+<msg timestamp="20230423 12:30:45.809" level="INFO">${nome} = Greg Ware</msg>
+<status status="PASS" starttime="20230423 12:30:45.808" endtime="20230423 12:30:45.809"/>
+</kw>
+<msg timestamp="20230423 12:30:45.810" level="INFO">${nome} = Greg Ware</msg>
+<status status="PASS" starttime="20230423 12:30:45.807" endtime="20230423 12:30:45.810"/>
+</kw>
+<kw name="Gerar job" library="helpers">
+<var>${job}</var>
+<kw name="Evaluate" library="BuiltIn">
+<var>${job}</var>
+<arg>random.choice(${jobs})</arg>
+<arg>random</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230423 12:30:45.812" level="INFO">${job} = QA</msg>
+<status status="PASS" starttime="20230423 12:30:45.812" endtime="20230423 12:30:45.813"/>
+</kw>
+<msg timestamp="20230423 12:30:45.813" level="INFO">${job} = QA</msg>
+<status status="PASS" starttime="20230423 12:30:45.811" endtime="20230423 12:30:45.814"/>
+</kw>
+<kw name="Gerar texto para body" library="helpers">
+<var>${body}</var>
+<kw name="Text" library="FakerLibrary">
+<var>${texto_body}</var>
+<arg>max_nb_chars=200</arg>
+<doc>Generate a text string.</doc>
+<msg timestamp="20230423 12:30:45.817" level="INFO">${texto_body} = Little left goal authority major computer officer. Get hair east road claim. Wind herself able spend gun throughout.
+Environment social me member.</msg>
+<status status="PASS" starttime="20230423 12:30:45.815" endtime="20230423 12:30:45.818"/>
+</kw>
+<msg timestamp="20230423 12:30:45.819" level="INFO">${body} = Little left goal authority major computer officer. Get hair east road claim. Wind herself able spend gun throughout.
+Environment social me member.</msg>
+<status status="PASS" starttime="20230423 12:30:45.814" endtime="20230423 12:30:45.820"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${request}</var>
+<arg>name=${nome}</arg>
+<arg>body=${body}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230423 12:30:45.822" level="INFO">${request} = {'name': 'Greg Ware', 'body': 'Little left goal authority major computer officer. Get hair east road claim. Wind herself able spend gun throughout.\nEnvironment social me member.'}</msg>
+<status status="PASS" starttime="20230423 12:30:45.821" endtime="20230423 12:30:45.822"/>
+</kw>
+<kw name="Enviar uma requisição POST no endpoint de users" library="UserResources">
+<var>${cadastro}</var>
+<arg>${request}</arg>
+<arg>${headers}</arg>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>alias=goRestAPI</arg>
+<arg>url=${ENDPOINT_POSTS}</arg>
+<arg>json=${usuario}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20230423 12:30:46.289" level="INFO">POST Request : url=https://reqres.in/api/users 
+ path_url=/api/users 
+ headers={'User-Agent': 'python-requests/2.28.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'content-type': 'application/json', 'Content-Length': '180'} 
+ body=b'{"name": "Greg Ware", "body": "Little left goal authority major computer officer. Get hair east road claim. Wind herself able spend gun throughout.\\nEnvironment social me member."}' 
+ </msg>
+<msg timestamp="20230423 12:30:46.289" level="INFO">POST Response : url=https://reqres.in/api/users 
+ status=201, reason=Created 
+ headers={'Date': 'Sun, 23 Apr 2023 15:30:57 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '227', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Etag': 'W/"e3-VMlxvK+DSERrEDFJ6yfHWSinmaw"', 'Via': '1.1 vegur', 'CF-Cache-Status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=19GzTjZ9eML6yGUJnL8fa%2Bn2Ek4bTYT9xSMJD9XLvB7UJ9H32IMhJ%2FXHo38ApSEH9o31E67k0CrF1%2FbiUlFlQUo6CH6epeTAuKkWp3%2BoU6GSioA3d8bOgL14Mw%3D%3D"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '7bc7269349d49ca6-GIG'} 
+ body={"name":"Greg Ware","body":"Little left goal authority major computer officer. Get hair east road claim. Wind herself able spend gun throughout.\nEnvironment social me member.","id":"694","createdAt":"2023-04-23T15:30:57.479Z"} 
+ </msg>
+<msg timestamp="20230423 12:30:46.290" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20230423 12:30:45.824" endtime="20230423 12:30:46.290"/>
+</kw>
+<msg timestamp="20230423 12:30:46.292" level="INFO">${cadastro} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20230423 12:30:45.823" endtime="20230423 12:30:46.292"/>
+</kw>
+<kw name="Status code deve ser" library="commonResource">
+<arg>201</arg>
+<arg>${cadastro}</arg>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<arg>${status_code_esperado}</arg>
+<arg>${response.status_code}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<msg timestamp="20230423 12:30:46.305" level="INFO">Argument types are:
+&lt;class 'str'&gt;
+&lt;class 'int'&gt;</msg>
+<status status="PASS" starttime="20230423 12:30:46.301" endtime="20230423 12:30:46.306"/>
+</kw>
+<kw name="Log Many" library="BuiltIn">
+<arg>Status code esperado: ${status_code_esperado} - Status code obtido: ${response.status_code}</arg>
+<doc>Logs the given messages as separate entries using the INFO level.</doc>
+<msg timestamp="20230423 12:30:46.311" level="INFO">Status code esperado: 201 - Status code obtido: 201</msg>
+<status status="PASS" starttime="20230423 12:30:46.307" endtime="20230423 12:30:46.312"/>
+</kw>
+<status status="PASS" starttime="20230423 12:30:46.297" endtime="20230423 12:30:46.312"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${cadastro.json()}</arg>
+<arg>id</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20230423 12:30:46.313" endtime="20230423 12:30:46.314"/>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${id}</var>
+<arg>${cadastro.json()}</arg>
+<arg>id</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20230423 12:30:46.408" level="INFO">${id} = ['694']</msg>
+<status status="PASS" starttime="20230423 12:30:46.316" endtime="20230423 12:30:46.409"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${id}</var>
+<arg>${id[0]}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20230423 12:30:46.411" level="INFO">${id} = 694</msg>
+<status status="PASS" starttime="20230423 12:30:46.410" endtime="20230423 12:30:46.411"/>
+</kw>
+<kw name="Should Not Be Empty" library="BuiltIn">
+<arg>${id}</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<msg timestamp="20230423 12:30:46.413" level="INFO">Length is 3</msg>
+<status status="PASS" starttime="20230423 12:30:46.412" endtime="20230423 12:30:46.414"/>
+</kw>
+<doc>Caso de Teste pra cadastrar usuario no endpoint user</doc>
+<tag>cadastroUser</tag>
+<tag>positivo</tag>
+<tag>smoke</tag>
+<status status="PASS" starttime="20230423 12:30:44.673" endtime="20230423 12:30:46.415"/>
+</test>
+<test id="s1-t2" name="TI_02 - Cadastro invalido na lista de &quot;user&quot;" line="33">
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>content-type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230423 12:30:46.421" level="INFO">${headers} = {'content-type': 'application/json'}</msg>
+<status status="PASS" starttime="20230423 12:30:46.421" endtime="20230423 12:30:46.422"/>
+</kw>
+<kw name="Gerar dados de usuário" library="helpers">
+<var>${cadastrar}</var>
+<kw name="Gerar nome" library="helpers">
+<var>${nome}</var>
+<kw name="Name" library="FakerLibrary">
+<var>${nome}</var>
+<doc>:example 'John Doe'</doc>
+<msg timestamp="20230423 12:30:46.425" level="INFO">${nome} = Sarah Johnson</msg>
+<status status="PASS" starttime="20230423 12:30:46.424" endtime="20230423 12:30:46.425"/>
+</kw>
+<msg timestamp="20230423 12:30:46.426" level="INFO">${nome} = Sarah Johnson</msg>
+<status status="PASS" starttime="20230423 12:30:46.423" endtime="20230423 12:30:46.427"/>
+</kw>
+<kw name="Gerar job" library="helpers">
+<var>${job}</var>
+<kw name="Evaluate" library="BuiltIn">
+<var>${job}</var>
+<arg>random.choice(${jobs})</arg>
+<arg>random</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230423 12:30:46.430" level="INFO">${job} = SM</msg>
+<status status="PASS" starttime="20230423 12:30:46.428" endtime="20230423 12:30:46.430"/>
+</kw>
+<msg timestamp="20230423 12:30:46.431" level="INFO">${job} = SM</msg>
+<status status="PASS" starttime="20230423 12:30:46.427" endtime="20230423 12:30:46.431"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${usuario}</var>
+<arg>name=${nome}</arg>
+<arg>job=${job}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230423 12:30:46.435" level="INFO">${usuario} = {'name': 'Sarah Johnson', 'job': 'SM'}</msg>
+<status status="PASS" starttime="20230423 12:30:46.433" endtime="20230423 12:30:46.435"/>
+</kw>
+<msg timestamp="20230423 12:30:46.436" level="INFO">${cadastrar} = {'name': 'Sarah Johnson', 'job': 'SM'}</msg>
+<status status="PASS" starttime="20230423 12:30:46.423" endtime="20230423 12:30:46.436"/>
+</kw>
+<kw name="Cadastrar usuário" library="helpers">
+<var>${usuario_cadastro}</var>
+<arg>${cadastrar}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>content-type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230423 12:30:46.439" level="INFO">${headers} = {'content-type': 'application/json'}</msg>
+<status status="PASS" starttime="20230423 12:30:46.438" endtime="20230423 12:30:46.439"/>
+</kw>
+<kw name="Enviar uma requisição POST no endpoint de users" library="UserResources">
+<var>${usuario_cadastrado}</var>
+<arg>${usuario}</arg>
+<arg>${headers}</arg>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>alias=goRestAPI</arg>
+<arg>url=${ENDPOINT_POSTS}</arg>
+<arg>json=${usuario}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20230423 12:30:46.874" level="INFO">POST Request : url=https://reqres.in/api/users 
+ path_url=/api/users 
+ headers={'User-Agent': 'python-requests/2.28.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'content-type': 'application/json', 'Content-Length': '38'} 
+ body=b'{"name": "Sarah Johnson", "job": "SM"}' 
+ </msg>
+<msg timestamp="20230423 12:30:46.875" level="INFO">POST Response : url=https://reqres.in/api/users 
+ status=201, reason=Created 
+ headers={'Date': 'Sun, 23 Apr 2023 15:30:58 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '85', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Etag': 'W/"55-HkndmqNjruLT0e9awQYeF8qfavU"', 'Via': '1.1 vegur', 'CF-Cache-Status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=DOdMSdg%2BGtMBpSDyQvTiMjoftj8Y3QmgIuftcxUeNtbQcmnkYnSuQrRmKD%2B17tBbTulmDsoN3lVWxqN5JaHLvtnWjaXopZLMINyGkCPqf4ZC%2FNDr3%2F4dSLYeGw%3D%3D"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '7bc72696f8379ca6-GIG'} 
+ body={"name":"Sarah Johnson","job":"SM","id":"113","createdAt":"2023-04-23T15:30:58.069Z"} 
+ </msg>
+<msg timestamp="20230423 12:30:46.875" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20230423 12:30:46.440" endtime="20230423 12:30:46.875"/>
+</kw>
+<msg timestamp="20230423 12:30:46.875" level="INFO">${usuario_cadastrado} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20230423 12:30:46.439" endtime="20230423 12:30:46.875"/>
+</kw>
+<msg timestamp="20230423 12:30:46.876" level="INFO">${usuario_cadastro} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20230423 12:30:46.437" endtime="20230423 12:30:46.876"/>
+</kw>
+<kw name="Status code deve ser" library="commonResource">
+<arg>201</arg>
+<arg>${usuario_cadastro}</arg>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<arg>${status_code_esperado}</arg>
+<arg>${response.status_code}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<msg timestamp="20230423 12:30:46.878" level="INFO">Argument types are:
+&lt;class 'str'&gt;
+&lt;class 'int'&gt;</msg>
+<status status="PASS" starttime="20230423 12:30:46.877" endtime="20230423 12:30:46.879"/>
+</kw>
+<kw name="Log Many" library="BuiltIn">
+<arg>Status code esperado: ${status_code_esperado} - Status code obtido: ${response.status_code}</arg>
+<doc>Logs the given messages as separate entries using the INFO level.</doc>
+<msg timestamp="20230423 12:30:46.881" level="INFO">Status code esperado: 201 - Status code obtido: 201</msg>
+<status status="PASS" starttime="20230423 12:30:46.879" endtime="20230423 12:30:46.882"/>
+</kw>
+<status status="PASS" starttime="20230423 12:30:46.876" endtime="20230423 12:30:46.882"/>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${id}</var>
+<arg>${usuario_cadastro.json()}</arg>
+<arg>id</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20230423 12:30:46.948" level="INFO">${id} = ['113']</msg>
+<status status="PASS" starttime="20230423 12:30:46.892" endtime="20230423 12:30:46.949"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${id}</var>
+<arg>${id[0]}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20230423 12:30:47.025" level="INFO">${id} = 113</msg>
+<status status="PASS" starttime="20230423 12:30:47.024" endtime="20230423 12:30:47.026"/>
+</kw>
+<kw name="Gerar job" library="helpers">
+<var>${job}</var>
+<kw name="Evaluate" library="BuiltIn">
+<var>${job}</var>
+<arg>random.choice(${jobs})</arg>
+<arg>random</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230423 12:30:47.068" level="INFO">${job} = SM</msg>
+<status status="PASS" starttime="20230423 12:30:47.067" endtime="20230423 12:30:47.068"/>
+</kw>
+<msg timestamp="20230423 12:30:47.068" level="INFO">${job} = SM</msg>
+<status status="PASS" starttime="20230423 12:30:47.066" endtime="20230423 12:30:47.068"/>
+</kw>
+<kw name="Gerar texto para body" library="helpers">
+<var>${body}</var>
+<kw name="Text" library="FakerLibrary">
+<var>${texto_body}</var>
+<arg>max_nb_chars=200</arg>
+<doc>Generate a text string.</doc>
+<msg timestamp="20230423 12:30:47.076" level="INFO">${texto_body} = Down occur call get religious. Find specific large nice community commercial.
+Man would area exist she. Speech compare bank past and.</msg>
+<status status="PASS" starttime="20230423 12:30:47.075" endtime="20230423 12:30:47.076"/>
+</kw>
+<msg timestamp="20230423 12:30:47.077" level="INFO">${body} = Down occur call get religious. Find specific large nice community commercial.
+Man would area exist she. Speech compare bank past and.</msg>
+<status status="PASS" starttime="20230423 12:30:47.075" endtime="20230423 12:30:47.077"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${request}</var>
+<arg>job=${job}</arg>
+<arg>body=${body}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230423 12:30:47.087" level="INFO">${request} = {'job': 'SM', 'body': 'Down occur call get religious. Find specific large nice community commercial.\nMan would area exist she. Speech compare bank past and.'}</msg>
+<status status="PASS" starttime="20230423 12:30:47.085" endtime="20230423 12:30:47.087"/>
+</kw>
+<kw name="Enviar uma requisição POST no endpoint de users" library="UserResources">
+<var>${cadastro}</var>
+<arg>${request}</arg>
+<arg>${headers}</arg>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>alias=goRestAPI</arg>
+<arg>url=${ENDPOINT_POSTS}</arg>
+<arg>json=${usuario}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20230423 12:30:47.516" level="INFO">POST Request : url=https://reqres.in/api/users 
+ path_url=/api/users 
+ headers={'User-Agent': 'python-requests/2.28.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'content-type': 'application/json', 'Content-Length': '159'} 
+ body=b'{"job": "SM", "body": "Down occur call get religious. Find specific large nice community commercial.\\nMan would area exist she. Speech compare bank past and."}' 
+ </msg>
+<msg timestamp="20230423 12:30:47.517" level="INFO">POST Response : url=https://reqres.in/api/users 
+ status=201, reason=Created 
+ headers={'Date': 'Sun, 23 Apr 2023 15:30:58 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '206', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Etag': 'W/"ce-iVfc32T8STCeXS/F5mUnO7qZhPA"', 'Via': '1.1 vegur', 'CF-Cache-Status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=rYMmbzzVT%2BzNVaiPJcHwj8AVXniFYKY2EYLn8C1%2BYNtMvyFYQnk3%2FaX8VJ3%2FWiLU0fXqDa9W6Th%2B73SIcXQ%2F1acX1dqqioewjQwKqoWF98AJlMJzU1sjVX4YWQ%3D%3D"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '7bc7269b0e689ca6-GIG'} 
+ body={"job":"SM","body":"Down occur call get religious. Find specific large nice community commercial.\nMan would area exist she. Speech compare bank past and.","id":"728","createdAt":"2023-04-23T15:30:58.714Z"} 
+ </msg>
+<msg timestamp="20230423 12:30:47.517" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20230423 12:30:47.091" endtime="20230423 12:30:47.518"/>
+</kw>
+<msg timestamp="20230423 12:30:47.518" level="INFO">${cadastro} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20230423 12:30:47.090" endtime="20230423 12:30:47.518"/>
+</kw>
+<kw name="Status code deve ser" library="commonResource">
+<arg>201</arg>
+<arg>${cadastro}</arg>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<arg>${status_code_esperado}</arg>
+<arg>${response.status_code}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<msg timestamp="20230423 12:30:47.522" level="INFO">Argument types are:
+&lt;class 'str'&gt;
+&lt;class 'int'&gt;</msg>
+<status status="PASS" starttime="20230423 12:30:47.521" endtime="20230423 12:30:47.523"/>
+</kw>
+<kw name="Log Many" library="BuiltIn">
+<arg>Status code esperado: ${status_code_esperado} - Status code obtido: ${response.status_code}</arg>
+<doc>Logs the given messages as separate entries using the INFO level.</doc>
+<msg timestamp="20230423 12:30:47.525" level="INFO">Status code esperado: 201 - Status code obtido: 201</msg>
+<status status="PASS" starttime="20230423 12:30:47.523" endtime="20230423 12:30:47.525"/>
+</kw>
+<status status="PASS" starttime="20230423 12:30:47.519" endtime="20230423 12:30:47.525"/>
+</kw>
+<doc>Caso de Teste negativo no cadastro de usuario no endpoint user</doc>
+<tag>cadastroUser</tag>
+<tag>negativo</tag>
+<tag>smoke</tag>
+<status status="PASS" starttime="20230423 12:30:46.419" endtime="20230423 12:30:47.526"/>
+</test>
+<test id="s1-t3" name="TI_03 - Efetuar consulta de usuario em &quot;user&quot;" line="53">
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>content-type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230423 12:30:47.533" level="INFO">${headers} = {'content-type': 'application/json'}</msg>
+<status status="PASS" starttime="20230423 12:30:47.532" endtime="20230423 12:30:47.533"/>
+</kw>
+<kw name="Enviar uma requisição GET no endpoint de users" library="UserResources">
+<var>${users_consultados}</var>
+<arg>${EMPTY}</arg>
+<arg>${headers}</arg>
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>alias=goRestAPI</arg>
+<arg>url=${ENDPOINT_POSTS}/${id_usuario}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20230423 12:30:47.620" level="INFO">GET Request : url=https://reqres.in/api/users/ 
+ path_url=/api/users/ 
+ headers={'User-Agent': 'python-requests/2.28.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'content-type': 'application/json'} 
+ body=None 
+ </msg>
+<msg timestamp="20230423 12:30:47.620" level="INFO">GET Response : url=https://reqres.in/api/users/ 
+ status=200, reason=OK 
+ headers={'Date': 'Sun, 23 Apr 2023 15:30:58 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Etag': 'W/"3e4-2RLXvr5wTg9YQ6aH95CkYoFNuO8"', 'Via': '1.1 vegur', 'Cache-Control': 'max-age=14400', 'CF-Cache-Status': 'HIT', 'Age': '2089', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=PZgLrO%2Bcait8dHRVmo01GxIaLeANo1%2B5FrY5zrWJzGV%2F1wvYoXmKS%2Bld1HdmZk%2FcMQUcIJL8Ac4YzlCYjIbu7XUgpI%2FrHnkqxZgq82ENW1WXZiiI7l5QuEeSxg%3D%3D"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Vary': 'Accept-Encoding', 'Server': 'cloudflare', 'CF-RAY': '7bc7269dda919ca6-GIG', 'Content-Encoding': 'gzip'} 
+ body={"page":1,"per_page":6,"total":12,"total_pages":2,"data":[{"id":1,"email":"george.bluth@reqres.in","first_name":"George","last_name":"Bluth","avatar":"https://reqres.in/img/faces/1-image.jpg"},{"id":2,"email":"janet.weaver@reqres.in","first_name":"Janet","last_name":"Weaver","avatar":"https://reqres.in/img/faces/2-image.jpg"},{"id":3,"email":"emma.wong@reqres.in","first_name":"Emma","last_name":"Wong","avatar":"https://reqres.in/img/faces/3-image.jpg"},{"id":4,"email":"eve.holt@reqres.in","first_name":"Eve","last_name":"Holt","avatar":"https://reqres.in/img/faces/4-image.jpg"},{"id":5,"email":"charles.morris@reqres.in","first_name":"Charles","last_name":"Morris","avatar":"https://reqres.in/img/faces/5-image.jpg"},{"id":6,"email":"tracey.ramos@reqres.in","first_name":"Tracey","last_name":"Ramos","avatar":"https://reqres.in/img/faces/6-image.jpg"}],"support":{"url":"https://reqres.in/#support-heading","text":"To keep ReqRes free, contributions towards server costs are appreciated!"}} 
+ </msg>
+<msg timestamp="20230423 12:30:47.621" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230423 12:30:47.535" endtime="20230423 12:30:47.621"/>
+</kw>
+<msg timestamp="20230423 12:30:47.621" level="INFO">${users_consultados} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230423 12:30:47.534" endtime="20230423 12:30:47.621"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${users_consultados.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230423 12:30:47.625" level="INFO">{'page': 1, 'per_page': 6, 'total': 12, 'total_pages': 2, 'data': [{'id': 1, 'email': 'george.bluth@reqres.in', 'first_name': 'George', 'last_name': 'Bluth', 'avatar': 'https://reqres.in/img/faces/1-image.jpg'}, {'id': 2, 'email': 'janet.weaver@reqres.in', 'first_name': 'Janet', 'last_name': 'Weaver', 'avatar': 'https://reqres.in/img/faces/2-image.jpg'}, {'id': 3, 'email': 'emma.wong@reqres.in', 'first_name': 'Emma', 'last_name': 'Wong', 'avatar': 'https://reqres.in/img/faces/3-image.jpg'}, {'id': 4, 'email': 'eve.holt@reqres.in', 'first_name': 'Eve', 'last_name': 'Holt', 'avatar': 'https://reqres.in/img/faces/4-image.jpg'}, {'id': 5, 'email': 'charles.morris@reqres.in', 'first_name': 'Charles', 'last_name': 'Morris', 'avatar': 'https://reqres.in/img/faces/5-image.jpg'}, {'id': 6, 'email': 'tracey.ramos@reqres.in', 'first_name': 'Tracey', 'last_name': 'Ramos', 'avatar': 'https://reqres.in/img/faces/6-image.jpg'}], 'support': {'url': 'https://reqres.in/#support-heading', 'text': 'To keep ReqRes free, contributions towards server costs are appreciated!'}}</msg>
+<status status="PASS" starttime="20230423 12:30:47.623" endtime="20230423 12:30:47.625"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${users_consultados.status_code}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230423 12:30:47.630" level="INFO">200</msg>
+<status status="PASS" starttime="20230423 12:30:47.628" endtime="20230423 12:30:47.632"/>
+</kw>
+<kw name="Status code deve ser" library="commonResource">
+<arg>200</arg>
+<arg>${users_consultados}</arg>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<arg>${status_code_esperado}</arg>
+<arg>${response.status_code}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<msg timestamp="20230423 12:30:47.637" level="INFO">Argument types are:
+&lt;class 'str'&gt;
+&lt;class 'int'&gt;</msg>
+<status status="PASS" starttime="20230423 12:30:47.634" endtime="20230423 12:30:47.637"/>
+</kw>
+<kw name="Log Many" library="BuiltIn">
+<arg>Status code esperado: ${status_code_esperado} - Status code obtido: ${response.status_code}</arg>
+<doc>Logs the given messages as separate entries using the INFO level.</doc>
+<msg timestamp="20230423 12:30:47.639" level="INFO">Status code esperado: 200 - Status code obtido: 200</msg>
+<status status="PASS" starttime="20230423 12:30:47.638" endtime="20230423 12:30:47.640"/>
+</kw>
+<status status="PASS" starttime="20230423 12:30:47.633" endtime="20230423 12:30:47.641"/>
+</kw>
+<doc>Caso de Teste pra validar a consulta do usuario no endpoint user</doc>
+<tag>cadastroUser</tag>
+<tag>positivo</tag>
+<tag>smoke</tag>
+<status status="PASS" starttime="20230423 12:30:47.529" endtime="20230423 12:30:47.646"/>
+</test>
+<test id="s1-t4" name="TI_04 - Efetuar consulta de usuario invalida" line="65">
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>content-type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230423 12:30:47.669" level="INFO">${headers} = {'content-type': 'application/json'}</msg>
+<status status="PASS" starttime="20230423 12:30:47.668" endtime="20230423 12:30:47.669"/>
+</kw>
+<kw name="Enviar uma requisição GET no endpoint de users" library="UserResources">
+<var>${users_consultados}</var>
+<arg>${9999}</arg>
+<arg>${headers}</arg>
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>alias=goRestAPI</arg>
+<arg>url=${ENDPOINT_POSTS}/${id_usuario}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20230423 12:30:48.238" level="INFO">GET Request : url=https://reqres.in/api/users/9999 
+ path_url=/api/users/9999 
+ headers={'User-Agent': 'python-requests/2.28.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'content-type': 'application/json'} 
+ body=None 
+ </msg>
+<msg timestamp="20230423 12:30:48.239" level="INFO">GET Response : url=https://reqres.in/api/users/9999 
+ status=404, reason=Not Found 
+ headers={'Date': 'Sun, 23 Apr 2023 15:30:59 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '2', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Etag': 'W/"2-vyGp6PvFo4RvsFtPoIWeCReyIC8"', 'Via': '1.1 vegur', 'Cache-Control': 'max-age=14400', 'CF-Cache-Status': 'EXPIRED', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=%2FOhdi3DB2gkLbeC5GpQA6hDwc%2FHUExkfhYOYMO6SrWi0jrwJQAmz%2Bi2S1Sx2dygCVBKVWyuFS1w4HvK5ur0tWzYHwCannZWtbYR6k1bQktRgZFPtewSrjR%2Bnmw%3D%3D"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Vary': 'Accept-Encoding', 'Server': 'cloudflare', 'CF-RAY': '7bc7269ebbaa9ca6-GIG'} 
+ body={} 
+ </msg>
+<msg timestamp="20230423 12:30:48.240" level="INFO">${response} = &lt;Response [404]&gt;</msg>
+<status status="PASS" starttime="20230423 12:30:47.672" endtime="20230423 12:30:48.240"/>
+</kw>
+<msg timestamp="20230423 12:30:48.241" level="INFO">${users_consultados} = &lt;Response [404]&gt;</msg>
+<status status="PASS" starttime="20230423 12:30:47.670" endtime="20230423 12:30:48.242"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${users_consultados.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230423 12:30:48.250" level="INFO">{}</msg>
+<status status="PASS" starttime="20230423 12:30:48.244" endtime="20230423 12:30:48.251"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${users_consultados.status_code}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230423 12:30:48.258" level="INFO">404</msg>
+<status status="PASS" starttime="20230423 12:30:48.254" endtime="20230423 12:30:48.259"/>
+</kw>
+<kw name="Status code deve ser" library="commonResource">
+<arg>404</arg>
+<arg>${users_consultados}</arg>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<arg>${status_code_esperado}</arg>
+<arg>${response.status_code}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<msg timestamp="20230423 12:30:48.265" level="INFO">Argument types are:
+&lt;class 'str'&gt;
+&lt;class 'int'&gt;</msg>
+<status status="PASS" starttime="20230423 12:30:48.263" endtime="20230423 12:30:48.266"/>
+</kw>
+<kw name="Log Many" library="BuiltIn">
+<arg>Status code esperado: ${status_code_esperado} - Status code obtido: ${response.status_code}</arg>
+<doc>Logs the given messages as separate entries using the INFO level.</doc>
+<msg timestamp="20230423 12:30:48.270" level="INFO">Status code esperado: 404 - Status code obtido: 404</msg>
+<status status="PASS" starttime="20230423 12:30:48.267" endtime="20230423 12:30:48.270"/>
+</kw>
+<status status="PASS" starttime="20230423 12:30:48.261" endtime="20230423 12:30:48.270"/>
+</kw>
+<doc>Caso de Teste pra validação negativa de consulta de usuario em user</doc>
+<tag>cadastroUser</tag>
+<tag>negativo</tag>
+<tag>smoke</tag>
+<status status="PASS" starttime="20230423 12:30:47.666" endtime="20230423 12:30:48.271"/>
+</test>
+<status status="PASS" starttime="20230423 12:30:39.441" endtime="20230423 12:30:48.285"/>
+</suite>
+<statistics>
+<total>
+<stat pass="4" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="4" fail="0" skip="0">cadastroUser</stat>
+<stat pass="2" fail="0" skip="0">negativo</stat>
+<stat pass="2" fail="0" skip="0">positivo</stat>
+<stat pass="4" fail="0" skip="0">smoke</stat>
+</tag>
+<suite>
+<stat pass="4" fail="0" skip="0" id="s1" name="Usertest">Usertest</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
